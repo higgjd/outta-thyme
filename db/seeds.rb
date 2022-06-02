@@ -10,9 +10,20 @@ require 'uri'
 require 'net/http'
 require 'openssl'
 
-url = URI("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=apples%2Cflour%2Csugar&number=5&ignorePantry=true&ranking=1")
+puts "Destroying database..."
+Recipe.delete_all
+Favourite.delete_all
 
-http = Net::HTTP.new(url.host, url.port)
+# # SEARCH BY INGREDIENT
+
+def search_by_ingredient(ingredients)
+  ingredients.each do |ingredient|
+
+
+end
+url = URI("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=#{ingredient}%#{ingredient}%#{ingredient}&number=5&ignorePantry=true&ranking=1")
+
+http = Net::HTTP.new(url.host, url.port) # => String
 http.use_ssl = true
 http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
@@ -20,5 +31,31 @@ request = Net::HTTP::Get.new(url)
 request["X-RapidAPI-Host"] = 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
 request["X-RapidAPI-Key"] = 'e7f027f352msh98c9ac64f8a37fdp133f57jsnecb37450e34c'
 
-response = http.request(request)
-puts response.read_body
+response = http.request(request) # => Class = Net::HTTPOK
+# plain_text = response.read_body # => JSON
+parsed_data = JSON.parse(response.read_body) # => Parsing the JSON
+puts parsed_data[0]["title"] # =>
+
+# # GET RECIPE INFO
+
+# recipe_info_url = URI("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/479101/information")
+
+# http = Net::HTTP.new(recipe_info_url.host, recipe_info_url.port)
+# http.use_ssl = true
+# http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+# recipe_info_request = Net::HTTP::Get.new(recipe_info_url)
+# request["X-RapidAPI-Host"] = 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
+# request["X-RapidAPI-Key"] = 'e7f027f352msh98c9ac64f8a37fdp133f57jsnecb37450e34c'
+
+# recipe_info_response = http.request(request)
+# puts recipe_info_response.read_body
+
+
+# def get_recipe
+#   title =
+#   extended_ingredients =
+#   instructions =
+#   image_url =
+#   ready_in_minutes =
+# end
