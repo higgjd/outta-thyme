@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'favourites/index'
+  get 'favourites/new'
+  get 'favourites/create'
+  get 'favourites/destroy'
   get 'recipes/index'
   get 'recipes/show'
   devise_for :users
