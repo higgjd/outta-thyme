@@ -9,32 +9,55 @@
 require 'uri'
 require 'net/http'
 require 'openssl'
+require 'faker'
 
 puts "Destroying database..."
 Recipe.delete_all
 Favourite.delete_all
 
-# # SEARCH BY INGREDIENT
 
-def search_by_ingredient(ingredients)
-  ingredients.each do |ingredient|
-
-
+# def create_recipes
+50.times do
+  recipe = Recipe.new
+  recipe.title = Faker::Food.dish
+  recipe.image_url = Faker::Avatar.image
+  recipe.missed_ingredients = [Faker::Food.ingredient + Faker::Food.ingredient]
+  recipe.used_ingredients = [Faker::Food.ingredient + Faker::Food.ingredient]
+  recipe.missed_ingredient_count = rand(1..10)
+  recipe.used_ingredient_count = rand(1..10)
+  recipe.missed_ingredient_count = rand(1..10)
+  recipe.save!
+  puts "#{recipe.title} saved"
 end
-url = URI("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=#{ingredient}%#{ingredient}%#{ingredient}&number=5&ignorePantry=true&ranking=1")
 
-http = Net::HTTP.new(url.host, url.port) # => String
-http.use_ssl = true
-http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+puts "Database updated!"
 
-request = Net::HTTP::Get.new(url)
-request["X-RapidAPI-Host"] = 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
-request["X-RapidAPI-Key"] = 'e7f027f352msh98c9ac64f8a37fdp133f57jsnecb37450e34c'
 
-response = http.request(request) # => Class = Net::HTTPOK
-# plain_text = response.read_body # => JSON
-parsed_data = JSON.parse(response.read_body) # => Parsing the JSON
-puts parsed_data[0]["title"] # =>
+# # SEARCH BY INGREDIENT
+# search format tomato%2Cpotato%2Csausage
+
+# def search_by_ingredient(ingredients)
+#   # ingredients = ["apple", "flour", "sugar"]
+#   # ingredient_list = "apple,flour,sugar"
+#   ingredient_list = ingredients.join(",")
+#   puts ingredient_list
+#   # url = URI("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=#{ingredient_list}&number=5&ignorePantry=true&ranking=1")
+
+#   # http = Net::HTTP.new(url.host, url.port)
+#   # http.use_ssl = true
+#   # http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+#   # request = Net::HTTP::Get.new(url)
+#   # request["X-RapidAPI-Key"] = 'e7f027f352msh98c9ac64f8a37fdp133f57jsnecb37450e34c'
+#   # request["X-RapidAPI-Host"] = 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
+
+#   # response = http.request # => Class = Net::HTTPOK
+#   # # plain_text = response.read_body # => JSON
+#   # parsed_data = JSON.parse(response.read_body) # => Parsing the JSON
+#   # puts parsed_data[0]["title"] # =>
+# end
+
+
 
 # # GET RECIPE INFO
 
