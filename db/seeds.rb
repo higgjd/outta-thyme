@@ -69,7 +69,7 @@ puts "Database updated!"
 
 # recipe_info_request = Net::HTTP::Get.new(recipe_info_url)
 # request["X-RapidAPI-Host"] = 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
-# request["X-RapidAPI-Key"] = 'e7f027f352msh98c9ac64f8a37fdp133f57jsnecb37450e34c'
+# request["X-RapidAPI-Key"] = ENV['SPOONACULAR_API_KEY']
 
 # recipe_info_response = http.request(request)
 # puts recipe_info_response.read_body
