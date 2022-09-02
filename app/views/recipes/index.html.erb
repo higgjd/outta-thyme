@@ -1,8 +1,20 @@
-<h1>Recipes#index</h1>
-<p>Testing</p>
 
-<% @recipes.each do |recipe| %>
-  <li>
-    <%= "#{recipe.title}" %>
-  </li>
-<% end %>
+<div class="container">
+  <div class="row">
+    <h1>All recipes</h1>
+    <p>Testing</p>
+  </div>
+  <div class="row">
+    <% @recipes.each do |recipe| %>
+      <div class="card-recipe">
+        <div class="card-recipe-img">
+          <%= link_to image_tag(recipe.image_url, alt: "#{recipe.title} cover art", height: '100%', width: 'auto'), recipe_path(recipe) %>
+        </div>
+        <div class="card-recipe-infos">
+          <h2><%="#{recipe.title}"%></h2>
+          <p><%= "#{recipe.instructions}"%></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
