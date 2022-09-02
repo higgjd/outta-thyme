@@ -20,12 +20,12 @@ Favourite.delete_all
 50.times do
   recipe = Recipe.new
   recipe.title = Faker::Food.dish
+  recipe.instructions = Faker::Food.description
   recipe.image_url = Faker::Avatar.image
   recipe.missed_ingredients = [Faker::Food.ingredient + Faker::Food.ingredient]
-  recipe.used_ingredients = [Faker::Food.ingredient + Faker::Food.ingredient]
-  recipe.missed_ingredient_count = rand(1..10)
-  recipe.used_ingredient_count = rand(1..10)
-  recipe.missed_ingredient_count = rand(1..10)
+  recipe.used_ingredients = [Faker::Food.ingredient + Faker::Food.ingredient + Faker::Food.ingredient]
+  recipe.missed_ingredient_count = 2
+  recipe.used_ingredient_count = 3
   recipe.save!
   puts "#{recipe.title} saved"
 end
