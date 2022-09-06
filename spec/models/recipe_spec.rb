@@ -31,4 +31,6 @@ RSpec.describe Recipe, type: :model do
     it { should have_many(:favourites) }
   end
 
+
+
 end
