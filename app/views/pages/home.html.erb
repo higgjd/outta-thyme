@@ -2,6 +2,16 @@
   <div class="container">
     <h1>Outta Thyme</h1>
     <p>In a rush? Let's see what you've got...</p>
-    <%= link_to "Search my ingredients", recipes_path, class: "btn btn-flat" %>
+    <%# <%= link_to "Search my ingredients", recipes_path, class: "btn btn-flt" %>
+
+    <%= simple_form_for :search, url: search_path, method: :post do |f| %>
+      <div class="search-form-control form-group">
+        <input class="form-control string required" type="text" name="ingredient" id="search_query" placeholder="Enter ingredient" />
+        <button name="button" type="submit" class="btn btn-flat">
+          <i class="fas fa-search"></i> Search
+        </button>
+      </div>
+    <% end %>
+
   </div>
 </div>
