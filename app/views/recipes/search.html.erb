@@ -1,15 +1,13 @@
-<h1>Search results</h1>
+
 <div class="container">
   <div class="row">
-    <h1>All recipes</h1>
-    <p>Testing</p>
+    <h1>Search results</h1>
   </div>
   <div class="recipe-cards">
-    <% @recipes.each do |recipe| %>
+    <% @recipes.each do |r| %>
       <div class="card-category" style='background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= asset_path "#{recipe.image_url}" %>)'>
-        <%="#{recipe.title}"%>
+        <%= link_to r.title, recipe_path(recipe) %>
       </div>
     <% end %>
   </div>
-
 </div>

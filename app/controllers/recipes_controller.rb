@@ -59,7 +59,7 @@ class RecipesController < ApplicationController
         used_ingredients: recipe.usedIngredients,
         unused_ingredients: recipe.unusedIngredients
       )
-      raise
+
       new_recipe.save!
       puts "Created recipe #{new_recipe.title}!"
     end
