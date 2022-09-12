@@ -13,10 +13,13 @@
 # require "ostruct"
 # require 'pry-byebug'
 
-# puts "Destroying database..."
-# Recipe.delete_all
-# Favourite.delete_all
+puts "Destroying database..."
+Recipe.delete_all
+puts "All recipes deleted"
+Favourite.delete_all
+puts "All favourites deleted"
 
+# FAKED DATA
 
 # # def create_recipes
 # # 50.times do
@@ -32,6 +35,8 @@
 # #   puts "#{recipe.title} saved"
 # # end
 # # puts "Database updated!"
+
+
 
 
 

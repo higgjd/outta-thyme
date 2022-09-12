@@ -4,13 +4,15 @@ class RecipesController < ApplicationController
   end
 
   def show
-    @recipe = Recipe.find(params[:id])
+    @recipe = Recipe.find(params[:spoonacular_id])
   end
 
 
   def search
-    @recipes = search_by_ingredient(params[:ingredient])
-    create_recipe(@recipes)
+    # call API with given search term
+    results = search_by_ingredient(params[:ingredient]) # => array of 5 recipe hashes
+    # instantiate recipes for each result
+    @new_recipes = create_recipe(results)
   end
 
   def search_by_ingredient(ingredient)
@@ -46,8 +48,10 @@ class RecipesController < ApplicationController
 
 
   def create_recipe(recipes)
+    new_recipes = []
     recipes.each do |recipe|
       instructions_hash = get_instructions(recipe.id)
+
         new_recipe = Recipe.new(
         title: recipe.title,
         instructions: instructions_hash,
@@ -57,12 +61,11 @@ class RecipesController < ApplicationController
         missed_ingredient_count: recipe.missedIngredientCount,
         missed_ingredients: recipe.missedIngredientsusedIngredients,
         used_ingredients: recipe.usedIngredients,
-        unused_ingredients: recipe.unusedIngredients
+        unused_ingredients: recipe.unusedIngredients,
+        spoonacular_id: recipe.id
       )
-
-      new_recipe.save!
-      puts "Created recipe #{new_recipe.title}!"
+      new_recipes << new_recipe
     end
+    return new_recipes
   end
-
 end
